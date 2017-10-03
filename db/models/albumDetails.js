@@ -10,7 +10,7 @@ var AlbumDetailsSchema = new Schema({
     published: Date,
     edited: Date,
     imageCount: Number,
-    cover: String,
+    cover: { publicId: String, url: String },
     images: [{
         publicId: String,
         url: String,

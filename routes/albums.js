@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var cloudinary = require('cloudinary');
+var cloudinaryUtils = require('../utils/cloudinary');
 var Album = require('../db/models/albumDetails');
 var ObjectID = require('mongodb').ObjectID;
 
@@ -9,6 +9,10 @@ router.get('/', function (req, res, next) {
     Album.find({}, function(err, data) {
         if (err) {
             return res.send(err);
+        }
+        console.log(cloudinaryUtils);
+        for (var i = 0; i < data.length; i++) {
+            data[i].cover.url = cloudinaryUtils.crop(data[i].cover.publicId, 200, 200); // TODO: use ES6
         }
         res.send(data);
     });
@@ -23,7 +27,7 @@ router.post('/', function (req, res, next) {
     album.description = req.body.description;
     album.published = new Date();
     album.edited = new Date();
-    album.cover = cloudinary.image(req.body.images[0].public_id, { width: 100, height: 150, crop: 'fill' });
+    album.cover = req.body.images[0]; // TODO: use ES6
     album.images = req.body.images;
 
     album.save(function(err) {
@@ -41,6 +45,7 @@ router.get('/:id', function (req, res, next) {
         if (err) {
             return res.send(err);
         }
+        console.log(data.images[0].publicId);
         res.send(data);
     });
 });
