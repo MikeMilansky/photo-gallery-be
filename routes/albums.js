@@ -45,9 +45,16 @@ router.get('/:id', function (req, res, next) {
         if (err) {
             return res.send(err);
         }
-        console.log(data.images[0].publicId);
         res.send(data);
     });
 });
 
+router.delete('/:id', function (req, res, next) {
+    Album.remove({ id: req.params.id }, function(err, data) {
+        if (err) {
+            return res.send(err);
+        }
+        res.send(data);
+    });
+});
 module.exports = router;

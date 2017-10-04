@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var AlbumDetailsSchema = new Schema({
     id: String,
     title: String,
+    description: String,
     published: Date,
     edited: Date,
     imageCount: Number,

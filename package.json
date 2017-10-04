@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "babel-register": "^6.26.0",
     "body-parser": "~1.17.1",
     "cloudinary": "^1.9.0",
     "cookie-parser": "~1.4.3",
