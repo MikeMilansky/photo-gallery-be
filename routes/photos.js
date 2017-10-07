@@ -29,17 +29,13 @@ router.post('/', function(req, res, next) {
 
         console.log(images);
         for(var i = 0; i < imagesCount; i++) {
-            console.log('--first');
 
             cloudinary.v2.uploader.upload(images[i].path, function (error, result) {
-                console.log('--callback');
                 if (!!error) {
                     return res.error(error);
                 }
                 uploadedImages.push(result);
                 imagesProcessed++;
-                console.log('--cond');
-                console.log(imagesProcessed === imagesCount);
                 if (imagesProcessed === imagesCount) {
                     res.send(uploadedImages);
                 }
